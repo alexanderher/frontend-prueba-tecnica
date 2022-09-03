@@ -10,7 +10,7 @@ interface IForm {
 
 const FormRegister: FC<IForm> = ({ type, person }) => {
   const initialValues = {
-    name: "",
+    risk_level: "",
     sugar_min: null,
     sugar_max: null,
     fat_min: null,
@@ -20,7 +20,7 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
     ...person,
   };
   const schema = Yup.object().shape({
-    name: Yup.string().required("obligatorio"),
+    risk_level: Yup.string().required("obligatorio"),
     sugar_min: Yup.number()
       .nullable()
       .required("obligatorio")
@@ -80,13 +80,13 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
           <Form>
             <div className="row">
               <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="name_id" className="form-label">
-                  Nombre
+                <label htmlFor="risk_level_id" className="form-label">
+                  Nivel de riesgo
                 </label>
                 <Field
                   type="text"
-                  id="name_id"
-                  name="name"
+                  id="risk_level_id"
+                  name="risk_level"
                   className="form-control"
                   aria-describedby="nombre del reto"
                   autoComplete="off"
@@ -102,7 +102,7 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                     }
                   }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="name" />}</span>
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="risk_level" />}</span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="sugar_id" className="form-label">

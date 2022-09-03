@@ -26,7 +26,7 @@ const ListRule = () => {
           style={{ color: "#6accbc", cursor: "pointer" }}
           className="fa fa-plus"
           aria-hidden="true"
-          onClick={() => navigate("../create/user", { replace: true })}
+          onClick={() => navigate("../create/rule", { replace: true })}
         >
           {" "}
           <span> Crear</span>{" "}
@@ -35,7 +35,7 @@ const ListRule = () => {
       </div>
       <div className="card">
         <div className="card-body">
-          <TableRule data={users} />
+          <TableRule data={users} get_users={get_users} />
         </div>
       </div>
     </div>

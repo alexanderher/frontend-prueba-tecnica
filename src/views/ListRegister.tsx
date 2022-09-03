@@ -8,7 +8,7 @@ const ListRegister = () => {
   const [ users, setUsers]  = useState<any>([]);
   const get_users = async () => {
     try {
-      const response = await list_register();
+      const response = await list_register();      
       setUsers(response)
      
     } catch (error) {
@@ -35,7 +35,7 @@ const ListRegister = () => {
       </div>
       <div className="card">
         <div className="card-body">
-          <TableRegister data={users} />
+          <TableRegister data={users} get_users={get_users} />
         </div>
       </div>
     </div>

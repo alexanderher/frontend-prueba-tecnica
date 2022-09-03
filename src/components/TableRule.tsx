@@ -4,9 +4,10 @@ import { delete_rule } from "../actions/actions";
 
 interface ITable {
   data: any[];
+  get_users: () => any;
 }
 
-const TableRegister: FC<ITable> = ({ data }) => {
+const TableRegister: FC<ITable> = ({ data, get_users }) => {
   const navigate = useNavigate();
   return (
     <table className="table">
@@ -26,66 +27,39 @@ const TableRegister: FC<ITable> = ({ data }) => {
       </thead>
       <tbody  /*style={{position: 'relative',background: '#b5bac9', zIndex: 100, opacity: 1}}*/>
       {/* <i style={{position: 'absolute', top: '50%', left: '50%'}} className="fa fa-spinner fa-spin" aria-hidden="true"></i> */}
-        <tr>
-          <th scope="row">1</th>
-          <td>Mark</td>
-          <td>Otto</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>@mdo</td>
-          <td>
-            <i
-              className="fa fa-pencil"
-              style={{color: '#6accbc', cursor: 'pointer'}}
-              aria-hidden="true"
-              onClick={() => {
-                navigate("../edit/rule/:id", { replace: true });
-              }}
-            ></i>
-          </td>
-          <td>
-            <i
-              className="fa fa-trash-o"
-              style={{color: 'red', cursor: 'pointer'}}
-              aria-hidden="true"
-              onClick={() => {
-                delete_rule('1')
-              }}
-            ></i>
-          </td>
-        </tr>
-        <tr>
-          <th scope="row">2</th>
-          <td>Jacob</td>
-          <td>Thornton</td>
-          <td>@fat</td>
-          <td>@fat</td>
-          <td>@fat</td>
-          <td>@fat</td>
-          <td>@fat</td>
-          <td>
-            <i
-              className="fa fa-pencil"
-              style={{color: '#6accbc', cursor: 'pointer'}}
-              aria-hidden="true"
-              onClick={() => {
-                navigate("../edit/rule/:id", { replace: true });
-              }}
-            ></i>
-          </td>
-          <td>
-            <i
-              className="fa fa-trash-o"
-              style={{color: 'red', cursor: 'pointer'}}
-              aria-hidden="true"
-              onClick={() => {
-               
-              }}
-            ></i>
-          </td>
-        </tr>
+      {data.map(rule => 
+         <tr>
+         <th scope="row">{rule?.id}</th>
+         <td>Mark</td>
+         <td>{rule?.sugar_min}</td>
+         <td>{rule?.sugar_max}</td>
+         <td>{rule?.oxygen_min}</td>
+         <td>{rule?.oxygen_max}</td>
+         <td>{rule?.fat_min}</td>
+         <td>{rule?.fat_max}</td>
+         <td>
+           <i
+             className="fa fa-pencil"
+             style={{color: '#6accbc', cursor: 'pointer'}}
+             aria-hidden="true"
+             onClick={() => {
+               navigate(`../edit/rule/${rule?.id}`, { replace: true });
+             }}
+           ></i>
+         </td>
+         <td>
+           <i
+             className="fa fa-trash-o"
+             style={{color: 'red', cursor: 'pointer'}}
+             aria-hidden="true"
+             onClick={async () => {
+               await delete_rule(rule?.id);
+               await get_users();
+             }}
+           ></i>
+         </td>
+       </tr>
+      )}
       </tbody>
     </table>
   );

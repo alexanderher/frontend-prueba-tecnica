@@ -1,21 +1,23 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FC } from "react";
+import { useNavigate } from "react-router-dom";
 import * as Yup from "yup";
 import { create_register, update_register } from "../actions/actions";
 
 interface IForm {
-  type: 'create' | 'edit'
+  type: "create" | "edit";
   person?: any;
 }
 
 const FormRegister: FC<IForm> = ({ type, person }) => {
+  const navigate = useNavigate();
   const initialValues = {
     name: "",
-    id: null,
+    id: "",
     type: "",
-    sugar: null,
-    fat: null,
-    oxygen: null,
+    sugar: "",
+    fat: "",
+    oxygen: "",
     ...person,
   };
   const schema = Yup.object().shape({
@@ -45,17 +47,18 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
   const submit = async (values: any, actions: any) => {
     console.log("voy a crear register");
     try {
-      if(type === 'create') {
+      if (type === "create") {
         await create_register(values);
+        actions.resetForm();
+        navigate("../list/user", { replace: true })
+
       } else {
-        await update_register(values.id, values)
+        await update_register(values.id, values);
+        navigate("../list/user", { replace: true })
       }
-     
     } catch (error) {
       console.log(error);
     }
-    
-
   };
   return (
     <Formik
@@ -91,7 +94,9 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                     }
                   }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="name" />}</span>
+                <span className="text-danger mb-3">
+                  {<ErrorMessage className="text-danger" name="name" />}
+                </span>
               </div>
               <div className="col-12 col-md-6 col-lg-6">
                 <label htmlFor="id_id" className="form-label">
@@ -106,7 +111,9 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                   maxLength={250}
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="id" />}</span>
+                <span className="text-danger mb-3">
+                  {<ErrorMessage className="text-danger" name="id" />}
+                </span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="type_id" className="form-label">
@@ -133,7 +140,9 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                   <option value="AB -">AB -</option>
                   <option value="O -">O -</option>
                 </Field>
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="type" />}</span>
+                <span className="text-danger mb-3">
+                  {<ErrorMessage className="text-danger" name="type" />}
+                </span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="sugar_id" className="form-label">
@@ -147,7 +156,9 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                   autoComplete="off"
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="sugar" />}</span>
+                <span className="text-danger mb-3">
+                  {<ErrorMessage className="text-danger" name="sugar" />}
+                </span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="fat_id" className="form-label">
@@ -161,7 +172,9 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                   autoComplete="off"
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="fat" />}</span>
+                <span className="text-danger mb-3">
+                  {<ErrorMessage className="text-danger" name="fat" />}
+                </span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="oxygen_id" className="form-label">
@@ -175,8 +188,9 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                   autoComplete="off"
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="oxygen" />}</span>
-                
+                <span className="text-danger mb-3">
+                  {<ErrorMessage className="text-danger" name="oxygen" />}
+                </span>
               </div>
             </div>
             <div className="row">
