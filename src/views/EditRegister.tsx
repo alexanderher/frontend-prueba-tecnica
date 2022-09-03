@@ -10,6 +10,8 @@ const EditRegister = () => {
     try {
       if (id) {
         const response = await get_register(id);
+        console.log(response);
+        
         setUser(response)
       }
     } catch (error) {

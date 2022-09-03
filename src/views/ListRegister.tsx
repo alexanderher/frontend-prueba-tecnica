@@ -8,7 +8,7 @@ const ListRegister = () => {
   const [ users, setUsers]  = useState<any>([]);
   const get_users = async () => {
     try {
-      const response = await list_register();
+      const response = await list_register();      
       setUsers(response)
      
     } catch (error) {
