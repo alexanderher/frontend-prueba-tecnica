@@ -1,7 +1,7 @@
 import { Formik, Form, Field, ErrorMessage } from "formik";
 import { FC } from "react";
 import * as Yup from "yup";
-import { create_register, update_register } from "../actions/actions";
+import { create_rule, update_rule} from "../actions/actions";
 
 interface IForm {
   type: 'create' | 'edit'
@@ -11,31 +11,42 @@ interface IForm {
 const FormRegister: FC<IForm> = ({ type, person }) => {
   const initialValues = {
     name: "",
-    id: null,
-    type: "",
-    sugar: null,
-    fat: null,
-    oxygen: null,
+    sugar_min: null,
+    sugar_max: null,
+    fat_min: null,
+    fat_max: null,
+    oxygen_min: null,
+    oxygen_max: null,
     ...person,
   };
   const schema = Yup.object().shape({
     name: Yup.string().required("obligatorio"),
-    id: Yup.string()
-      .nullable()
-      .required("obligatorio")
-      .max(20, "Máximo 20 caracteres"),
-    type: Yup.string().required("obligatorio"),
-    sugar: Yup.number()
+    sugar_min: Yup.number()
       .nullable()
       .required("obligatorio")
       .min(0, "minimo 0")
       .max(100, "máximo 100"),
-    fat: Yup.number()
+    sugar_max: Yup.number()
       .nullable()
       .required("obligatorio")
       .min(0, "minimo 0")
       .max(100, "máximo 100"),
-    oxygen: Yup.number()
+    fat_min: Yup.number()
+      .nullable()
+      .required("obligatorio")
+      .min(0, "minimo 0")
+      .max(100, "máximo 100"),
+    fat_max: Yup.number()
+      .nullable()
+      .required("obligatorio")
+      .min(0, "minimo 0")
+      .max(100, "máximo 100"),
+    oxygen_min: Yup.number()
+      .nullable()
+      .required("obligatorio")
+      .min(0, "minimo 0")
+      .max(100, "máximo 100"),
+    oxygen_max: Yup.number()
       .nullable()
       .required("obligatorio")
       .min(0, "minimo 0")
@@ -43,12 +54,12 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
   });
 
   const submit = async (values: any, actions: any) => {
-    console.log("voy a crear register");
+    console.log("voy a crear");
     try {
       if(type === 'create') {
-        await create_register(values);
+        await create_rule(values);
       } else {
-        await update_register(values.id, values)
+        await update_rule(values.id, values)
       }
      
     } catch (error) {
@@ -93,89 +104,90 @@ const FormRegister: FC<IForm> = ({ type, person }) => {
                 />
                 <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="name" />}</span>
               </div>
-              <div className="col-12 col-md-6 col-lg-6">
-                <label htmlFor="id_id" className="form-label">
-                  Cedula
+              <div className="col-12 col-md-3 col-lg-3">
+                <label htmlFor="sugar_id" className="form-label">
+                  % Azucar minimo
                 </label>
                 <Field
                   type="number"
                   className="form-control"
-                  id="id_id"
-                  name="id"
+                  id="sugar_min_id"
+                  name="sugar_min"
                   autoComplete="off"
-                  maxLength={250}
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="id" />}</span>
-              </div>
-              <div className="col-12 col-md-3 col-lg-3">
-                <label htmlFor="type_id" className="form-label">
-                  Tipo de sangre
-                </label>
-                <Field
-                  as="select"
-                  className="form-control"
-                  id="type_id"
-                  name="type"
-                  autoComplete="off"
-                  maxLength={100}
-                  style={{ height: "38px" }}
-                >
-                  <option value="" defaultChecked>
-                    Seleccionar...
-                  </option>
-                  <option value="A +">A +</option>
-                  <option value="B +">B +</option>
-                  <option value="AB +">AB +</option>
-                  <option value="O +">O +</option>
-                  <option value="A -">A -</option>
-                  <option value="B -">B -</option>
-                  <option value="AB -">AB -</option>
-                  <option value="O -">O -</option>
-                </Field>
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="type" />}</span>
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="sugar_min" />}</span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="sugar_id" className="form-label">
-                  % Azucar
+                  % Azucar maximo
                 </label>
                 <Field
                   type="number"
                   className="form-control"
-                  id="sugar_id"
-                  name="sugar"
+                  id="sugar_max_id"
+                  name="sugar_max"
                   autoComplete="off"
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="sugar" />}</span>
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="sugar_max" />}</span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="fat_id" className="form-label">
-                  % Grasa
+                  % Grasa minimo
                 </label>
                 <Field
                   type="number"
                   className="form-control"
-                  id="fat_id"
-                  name="fat"
+                  id="fat_min_id"
+                  name="fat_min"
                   autoComplete="off"
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="fat" />}</span>
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="fat_min" />}</span>
+              </div>
+              <div className="col-12 col-md-3 col-lg-3">
+                <label htmlFor="fat_id" className="form-label">
+                  % Grasa maximo
+                </label>
+                <Field
+                  type="number"
+                  className="form-control"
+                  id="fat_max_id"
+                  name="fat_max"
+                  autoComplete="off"
+                  style={{ height: "38px" }}
+                />
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="fat_max" />}</span>
               </div>
               <div className="col-12 col-md-3 col-lg-3">
                 <label htmlFor="oxygen_id" className="form-label">
-                  % Oxigeno
+                  % Oxigeno minimo
                 </label>
                 <Field
                   type="number"
                   className="form-control"
-                  id="oxygen_id"
-                  name="oxygen"
+                  id="oxygen_min_id"
+                  name="oxygen_min"
                   autoComplete="off"
                   style={{ height: "38px" }}
                 />
-                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="oxygen" />}</span>
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="oxygen_min" />}</span>
+                
+              </div>
+              <div className="col-12 col-md-3 col-lg-3">
+                <label htmlFor="oxygen_id" className="form-label">
+                  % Oxigeno maximo
+                </label>
+                <Field
+                  type="number"
+                  className="form-control"
+                  id="oxygen_max_id"
+                  name="oxygen_max"
+                  autoComplete="off"
+                  style={{ height: "38px" }}
+                />
+                <span className="text-danger mb-3">{<ErrorMessage className='text-danger' name="oxygen_max" />}</span>
                 
               </div>
             </div>

@@ -43,6 +43,24 @@ const Navbar = () => {
                 Agregar Persona
               </div>
             </li>
+            <li className="nav-item">
+              <div
+                style={{ cursor: "pointer" }}
+                className="nav-link active"
+                onClick={() => navigate("../list/rule", { replace: true })}
+              >
+                Lista de reglas
+              </div>
+            </li>
+            <li className="nav-item">
+              <div
+                style={{ cursor: "pointer" }}
+                className="nav-link active"
+                onClick={() => navigate("../create/rule", { replace: true })}
+              >
+                Agregar regla
+              </div>
+            </li>
           </ul>
         </div>
       </div>
