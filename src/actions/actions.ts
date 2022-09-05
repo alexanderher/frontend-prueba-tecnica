@@ -146,7 +146,7 @@ export const update_rule = async (id: string, values: any) => {
   console.log("update rule");
   try {
     const URI = `/rule/${id}`;
-    const res: any = await httpConfig.post(URI, values);
+    const res: any = await httpConfig.put(URI, values);
     await Swal.fire({
       icon: "success",
       title: "Editado correctamente",
