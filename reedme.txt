@@ -1,0 +1,9 @@
+Hola 
+este es un proyecto front end desarrollado sobre react js
+para ejecutarlo solo debes descargar el proyecto correr los comandos 
+npm install
+npm run dev
+
+prerequisitos
+intalar visual estudio code 
+tener instalado npm
