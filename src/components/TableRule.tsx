@@ -30,7 +30,7 @@ const TableRegister: FC<ITable> = ({ data, get_users }) => {
       {data.map(rule => 
          <tr>
          <th scope="row">{rule?.id}</th>
-         <td>Mark</td>
+         <td>{rule?.risk_level}</td>
          <td>{rule?.sugar_min}</td>
          <td>{rule?.sugar_max}</td>
          <td>{rule?.oxygen_min}</td>
